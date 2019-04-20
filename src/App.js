@@ -4,6 +4,7 @@ import './App.less'
 import {
     Layout, Menu, Breadcrumb, Icon, Dropdown, Avatar, Badge
 } from 'antd'
+import {Link} from "react-router-dom"
 
 const {
     Header, Content, Sider,
@@ -16,9 +17,9 @@ class SiderDemo extends React.Component {
         collapsed: false,
     }
 
-    onCollapse = (collapsed) => {
+    onCollapse = () => {
         // console.log(collapsed)
-        this.setState({collapsed})
+        this.setState({collapsed: !this.state.collapsed})
     }
 
     render() {
@@ -32,7 +33,7 @@ class SiderDemo extends React.Component {
                     <Icon type="setting" className=''/>
                     <span>个人设置</span>
                 </Menu.Item>
-                <Menu.Divider />
+                <Menu.Divider/>
                 <Menu.Item>
                     <Icon type="logout" className=''/>
                     <span>退出登录</span>
@@ -47,6 +48,7 @@ class SiderDemo extends React.Component {
                         <div className="logo mr20p">
                             个人博客
                         </div>
+                        <Icon type="menu-unfold" onClick={this.onCollapse}/>
                         <Breadcrumb style={{margin: '16px 0'}}>
                             <Breadcrumb.Item>User</Breadcrumb.Item>
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
@@ -102,9 +104,15 @@ class SiderDemo extends React.Component {
                             </Menu.Item>
                         </Menu>
                     </Sider>
-                    <Content style={{padding: '0 16px', marginLeft: this.state.collapsed ? 80 : 200}}>
-                        <div style={{padding: 24, background: '#fff'}}>
-                            Bill is a cat.
+                    <Content style={{padding: '20px', marginLeft: this.state.collapsed ? 80 : 200}}>
+                        <div style={{padding: 24, background: '#fff', height: '2222px'}}>
+                            <nav>
+                                <ul>
+                                    <li><Link to='/'>Home</Link></li>
+                                    <li><Link to='/article'>article</Link></li>
+                                    <li><Link to='/Login'>Login</Link></li>
+                                </ul>
+                            </nav>
                         </div>
                     </Content>
                 </Layout>
