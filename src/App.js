@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import './App.less'
 
-import {
-    Layout, Menu, Breadcrumb, Icon, Dropdown, Avatar, Badge
-} from 'antd'
-import {Link} from "react-router-dom"
+import {Avatar, Badge, Breadcrumb, Dropdown, Icon, Layout, Menu} from 'antd'
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom"
+import Article from "./views/Article"
 
 const {
     Header, Content, Sider,
@@ -18,7 +17,6 @@ class SiderDemo extends React.Component {
     }
 
     onCollapse = () => {
-        // console.log(collapsed)
         this.setState({collapsed: !this.state.collapsed})
     }
 
@@ -109,10 +107,11 @@ class SiderDemo extends React.Component {
                             <nav>
                                 <ul>
                                     <li><Link to='/'>Home</Link></li>
-                                    <li><Link to='/article'>article</Link></li>
+                                    <li><Link to='/article'>Article</Link></li>
                                     <li><Link to='/Login'>Login</Link></li>
                                 </ul>
                             </nav>
+                            <Route path="/article" component={Article}/>
                         </div>
                     </Content>
                 </Layout>
