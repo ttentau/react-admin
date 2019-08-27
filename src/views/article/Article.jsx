@@ -1,9 +1,13 @@
 import React, {Component} from "react"
 import {Button, Card, Icon, Table, Input, Form, DatePicker} from "antd";
-
+import locale from 'antd/es/date-picker/locale/zh_CN';
+import moment from 'moment'
 class Article extends Component {
     state = {
-        loading: false
+        loading: false,
+        form: {
+            // date:moment('2019-09-11')
+        }
     }
 
     componentDidMount() {
@@ -16,6 +20,25 @@ class Article extends Component {
 
     getData() {
         console.log(1)
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        console.log(this.state.form)
+    };
+
+    onChange(key, e) {
+        this.state.form[key] = e.target.value
+        this.setState({
+            form: this.state.form
+        })
+    }
+
+    onDateChange(key, date, dateString) {
+        this.state.form[key] = date.valueOf()
+        this.setState({
+            form: this.state.form
+        })
     }
 
     render() {
@@ -44,29 +67,18 @@ class Article extends Component {
             })
         }
 
-        const formItemLayout = {
-            labelCol: {
-                xs: {span: 24},
-                sm: {span: 8},
-            },
-            wrapperCol: {
-                xs: {span: 24},
-                sm: {span: 16},
-            }
-        }
-        const buttonItemLayout = null;
         return (
             <div>
                 <Card title='文章列表' className='mb20p'>
-                    <Form layout='inline'>
+                    <Form layout='inline' onSubmit={this.handleSubmit}>
                         <Form.Item label="文章名称">
-                            <Input/>
+                            <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
                         </Form.Item>
                         <Form.Item label="日期">
-                            <DatePicker />
+                            <DatePicker locale={locale} onChange={this.onDateChange.bind(this, 'date')}/>
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary">
+                            <Button type="primary" htmlType="submit">
                                 <Icon type="search"/> 搜索
                             </Button>
                             <Button type="info" className='ml20p'>
