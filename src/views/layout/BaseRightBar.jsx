@@ -8,10 +8,12 @@ export default class BaseRightBar extends React.Component {
 
     state = {}
 
-    componentWillMount() {
-    }
 
     componentDidMount() {
+    }
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
     }
 
     componentWillUnmount() {

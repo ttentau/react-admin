@@ -2,19 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './assets/less/index.less'
 import * as serviceWorker from './serviceWorker'
-import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-import App from './App'
-import Login from "./views/pages/Login"
-import Article from "./views/article/Article"
-import CreateArticle from "./views/article/CreateArticle"
+import {routeConfig} from './route'
 
-const routeConfig = [
-    {
-        path: '/login',
-        component: Login,
-    }
-]
 // ReactDOM.render((
 //     <Router>
 //         <Switch>
@@ -26,9 +17,19 @@ const routeConfig = [
 //         </Switch>
 //     </Router>
 // ), document.getElementById('root'))
+
 ReactDOM.render(
-    <Router routes={routeConfig}/>,
+    (
+        <Router>
+            <Switch>
+                {routeConfig.map((v, i) => (
+                    <Route path={v.path} key={i} component={v.component}/>
+                ))}
+            </Switch>
+        </Router>
+    ),
     document.getElementById('root'))
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

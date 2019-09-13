@@ -1,6 +1,7 @@
 import React, {Component} from "react"
-import {Button, Card, Icon, Table, Input, Form, DatePicker} from "antd";
+import {Button, Card, DatePicker, Form, Icon, Input} from "antd";
 import locale from "antd/es/date-picker/locale/zh_CN"
+
 export default class CreateArticle extends Component {
     state = {
         loading: false,
@@ -26,16 +27,18 @@ export default class CreateArticle extends Component {
     };
 
     onChange(key, e) {
-        this.state.form[key] = e.target.value
+        let form = this.state.form
+        form[key] = e.target.value
         this.setState({
-            form: this.state.form
+            form: form
         })
     }
 
     onDateChange(key, date, dateString) {
-        this.state.form[key] = date.valueOf()
+        let form = this.state.form
+        form[key] = date.valueOf()
         this.setState({
-            form: this.state.form
+            form: form
         })
     }
 

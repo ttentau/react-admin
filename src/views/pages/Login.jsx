@@ -12,8 +12,6 @@ class Login extends Component {
     }
 
     render() {
-
-
         return (
             <div className='Login' style={{display: 'flex', justifyContent: 'center', alignItems: "center", height: '100%', background: '#f1f1f1'}}>
                 <Spin spinning={this.state.loading}>

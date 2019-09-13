@@ -1,9 +1,8 @@
 import React, {Component} from "react"
-import {Button, Card, Icon, Table, Input, Form, DatePicker} from "antd";
+import {Button, Card, DatePicker, Form, Icon, Input, Table} from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import moment from 'moment'
-import CreateArticle from "./CreateArticle"
 import Link from "react-router-dom/Link"
+
 class Article extends Component {
     state = {
         loading: false,
@@ -12,16 +11,11 @@ class Article extends Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     option(row) {
         console.log(row)
     }
 
     getData() {
-        console.log(1)
     }
 
     handleSubmit = e => {
@@ -30,17 +24,33 @@ class Article extends Component {
     };
 
     onChange(key, e) {
-        this.state.form[key] = e.target.value
+        let form = this.state.form
+        form[key] = e.target.value
         this.setState({
-            form: this.state.form
+            form: form
         })
     }
 
     onDateChange(key, date, dateString) {
-        this.state.form[key] = date.valueOf()
+        let form = this.state.form
+        form[key] = date.valueOf()
         this.setState({
-            form: this.state.form
+            form: form
         })
+    }
+
+    componentDidMount() {
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    }
+
+    componentWillUnmount() {
+    }
+
+    search(){
+        console.log(this)
+        console.log(this.state.form)
     }
 
     render() {
@@ -80,7 +90,7 @@ class Article extends Component {
                             <DatePicker locale={locale} onChange={this.onDateChange.bind(this, 'date')}/>
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" >
                                 <Icon type="search"/> 搜索
                             </Button>
                             <Button type="info" className='ml20p'>
@@ -96,10 +106,9 @@ class Article extends Component {
                             <Button type="info" className='mr10p' onClick={this.getData}>
                                 <Icon type="reload"/>
                             </Button>
-                            <Link  to="/app/article/create">
+                            <Link to="/article/create">
                                 <Button type="primary">
                                     <Icon type="plus"/>新建
-                                    <Link  to="/app/article/create"/>
                                 </Button>
                             </Link>
 

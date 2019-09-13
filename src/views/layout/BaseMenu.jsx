@@ -8,10 +8,12 @@ export default class BaseMenu extends React.Component {
 
     state = {}
 
-    componentWillMount() {
-    }
 
     componentDidMount() {
+    }
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
     }
 
     componentWillUnmount() {
