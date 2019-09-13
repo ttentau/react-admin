@@ -10,9 +10,14 @@ import Redirect from "react-router-dom/Redirect"
 const {Content} = Layout
 
 export default class BaseLayout extends React.Component {
-    state = {
-        menuCollapsed: false,
-        rightSideBarCollapsed: true
+
+    constructor(props){
+        super(props)
+        // console.log('props')
+        this.state = {
+            menuCollapsed: false,
+            rightSideBarCollapsed: true
+        }
     }
 
     onMenuCollapse = (e) => {

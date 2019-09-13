@@ -14,16 +14,31 @@ export const routeConfig = [
     },
     {
         path: '/article',
-        layout:'app',
+        layout: 'app',
+        hidden: false,
         component: App,
+        meta:{
+            icon:'',
+            title:'文章管理'
+        },
         children: [
             {
                 path: '/index',
                 component: Article,
+                hidden: false,
+                meta:{
+                    icon:'',
+                    title:'文章列表'
+                }
             },
             {
                 path: '/create',
                 component: CreateArticle,
+                hidden: false,
+                meta:{
+                    icon:'',
+                    title:'添加文章'
+                }
             },
         ]
     },

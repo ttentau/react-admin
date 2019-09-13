@@ -44,15 +44,15 @@ export default class BaseHeader extends React.Component {
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
-                <div className="header-right">
-                    <Dropdown overlay={menu}>
+                <div className="header-right mr30p">
+                    <Dropdown overlay={menu} className='mr20p'>
                             <span className="ant-dropdown-link d-flex align-items-center">
                                 <Avatar icon="user"/>
                                 <span className='ml10p'>TTentau</span>
                             </span>
                     </Dropdown>
 
-                    <Badge count={25} className='mr40p ml30p cp' onClick={this.onRightBarCollapse}>
+                    <Badge count={25} className='cp' onClick={this.onRightBarCollapse}>
                         <Icon type="bell" className='f20'/>
                     </Badge>
                 </div>
