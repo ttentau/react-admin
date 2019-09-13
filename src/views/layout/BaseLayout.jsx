@@ -5,6 +5,7 @@ import Article from "../article/Article"
 import BaseHeader from "./BaseHeader"
 import BaseMenu from "./BaseMenu"
 import BaseRightBar from "./BaseRightBar"
+import CreateArticle from "../article/CreateArticle"
 
 const {Content} = Layout
 
@@ -38,7 +39,8 @@ export default class BaseLayout extends React.Component {
                         transition: 'all .2s',
                         background:'#f1f1f1'
                     }}>
-                        <Route path="/app/article" component={Article}/>
+                        <Route path="/app/article/index" component={Article}/>
+                        <Route path="/app/article/create" component={CreateArticle}/>
 
                         {/*<div style={{padding: 24, background: '#fff'}}>*/}
                         {/*<Route path="/app/article" component={Article}/>*/}

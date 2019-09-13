@@ -1,0 +1,132 @@
+
+
+
+.wpx(500);
+.wp(100);
+
+//width的px循环
+.wpx(@n, @i: 0) when (@i =< @n) {
+  .w@{i}p {
+    width: (1px * @i);;
+  }
+  .wpx(@n, (@i + 10));
+}
+
+//width的百分比循环
+.wp(@n, @i: 0) when (@i =< @n) {
+  .w@{i} {
+    width: (@i * 1%);
+  }
+  .wp(@n, (@i + 1));
+}
+
+
+.hpx(500);
+.hp(100);
+
+//height的px循环
+.hpx(@n, @i: 0) when (@i =< @n) {
+  .h@{i}p {
+    height: (1px * @i);;
+  }
+  .hpx(@n, (@i + 10));
+}
+
+//height的百分比循环
+.hp(@n, @i: 0) when (@i =< @n) {
+  .h@{i} {
+    height: (@i * 1%);
+  }
+  .hp(@n, (@i + 1));
+}
+
+
+.f(50);
+
+.f(@n, @i: 10) when (@i =< @n) {
+  .f12@{i} {
+    font-size: (1px * @i) !important;
+  }
+  .f(@n, (@i + 1));
+}
+
+
+.plp(50);
+
+.plp(@n, @i: 0) when (@i =< @n) {
+  .pl@{i}p {
+    padding-left: (1px * @i);;
+  }
+  .plp(@n, (@i + 1));
+}
+
+//
+.prp(50);
+
+.prp(@n, @i: 0) when (@i =< @n) {
+  .pr@{i}p {
+    padding-right: (1px * @i);;
+  }
+  .prp(@n, (@i + 1));
+}
+
+//
+.ptp(50);
+
+.ptp(@n, @i: 0) when (@i =< @n) {
+  .pt@{i}p {
+    padding-top: (1px * @i);;
+  }
+  .ptp(@n, (@i + 1));
+}
+
+//
+.pbp(50);
+
+.pbp(@n, @i: 0) when (@i =< @n) {
+  .pb@{i}p {
+    padding-bottom: (1px * @i);;
+  }
+  .pbp(@n, (@i + 1));
+}
+
+
+//margin
+.mlp(50);
+
+.mlp(@n, @i: 0) when (@i =< @n) {
+  .ml@{i}p {
+    margin-left: (1px * @i);;
+  }
+  .mlp(@n, (@i + 1));
+}
+
+//
+.mrp(50);
+
+.mrp(@n, @i: 0) when (@i =< @n) {
+  .mr@{i}p {
+    margin-right: (1px * @i);;
+  }
+  .mrp(@n, (@i + 1));
+}
+
+//
+.mtp(50);
+
+.mtp(@n, @i: 0) when (@i =< @n) {
+  .mt@{i}p {
+    margin-top: (1px * @i);;
+  }
+  .mtp(@n, (@i + 1));
+}
+
+//
+.mbp(50);
+
+.mbp(@n, @i: 0) when (@i =< @n) {
+  .mb@{i}p {
+    margin-bottom: (1px * @i);;
+  }
+  .mbp(@n, (@i + 1));
+}

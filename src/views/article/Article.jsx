@@ -2,6 +2,8 @@ import React, {Component} from "react"
 import {Button, Card, Icon, Table, Input, Form, DatePicker} from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment'
+import CreateArticle from "./CreateArticle"
+import Link from "react-router-dom/Link"
 class Article extends Component {
     state = {
         loading: false,
@@ -94,9 +96,13 @@ class Article extends Component {
                             <Button type="info" className='mr10p' onClick={this.getData}>
                                 <Icon type="reload"/>
                             </Button>
-                            <Button type="primary">
-                                <Icon type="plus"/>新建
-                            </Button>
+                            <Link  to="/app/article/create">
+                                <Button type="primary">
+                                    <Icon type="plus"/>新建
+                                    <Link  to="/app/article/create"/>
+                                </Button>
+                            </Link>
+
                         </div>
                     </div>
                     <Table

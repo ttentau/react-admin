@@ -6,19 +6,29 @@ import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-rout
 
 import App from './App'
 import Login from "./views/pages/Login"
+import Article from "./views/article/Article"
+import CreateArticle from "./views/article/CreateArticle"
 
-
-ReactDOM.render((
-    <Router>
-        <Switch>
-            <Route exact path="/">
-                <Redirect to='/app/article'/>
-            </Route>
-            <Route path="/app" component={App}/>
-            <Route path="/Login" component={Login}/>
-        </Switch>
-    </Router>
-), document.getElementById('root'))
+const routeConfig = [
+    {
+        path: '/login',
+        component: Login,
+    }
+]
+// ReactDOM.render((
+//     <Router>
+//         <Switch>
+//             <Route exact path="/">
+//                 <Redirect to='/app/article/index'/>
+//             </Route>
+//             <Route path="/app" component={App}/>
+//             <Route path="/Login" component={Login}/>
+//         </Switch>
+//     </Router>
+// ), document.getElementById('root'))
+ReactDOM.render(
+    <Router routes={routeConfig}/>,
+    document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
