@@ -1,16 +1,23 @@
 import React, {Component} from "react"
-import {Button, Card, DatePicker, Form, Icon, Input} from "antd";
+import {Button, Card, Checkbox, Col, DatePicker, Form, Icon, Input, Row, Select} from "antd";
 import locale from "antd/es/date-picker/locale/zh_CN"
+
+const {Option} = Select;
+const {TextArea} = Input;
+const E = window.wangEditor
 
 export default class CreateArticle extends Component {
     state = {
         loading: false,
-        form: {
-        }
+        form: {},
+        wordEditor: null
     }
 
     componentDidMount() {
-
+        this.state.wordEditor = new E('.word-editor')
+        this.state.wordEditor.create()
+        // let edit = document.querySelector('.w-e-text-container')
+        // edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
     }
 
     option(row) {
@@ -42,20 +49,70 @@ export default class CreateArticle extends Component {
         })
     }
 
+    back() {
+        window.history.back()
+    }
+
     render() {
+        const children = [];
+        for (let i = 10; i < 36; i++) {
+            children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+        }
+
         return (
             <div>
-                <Card className='mb20p'>
-                    <Form layout='horizontal' onSubmit={this.handleSubmit}>
+                <Button type="primary" className={'mb20p'} onClick={this.back}>
+                    <Icon type="left"/>返回
+                </Button>
+                <Card className='mb20p' title="添加文章">
+                    <Form onSubmit={this.handleSubmit}>
                         <Form.Item label="文章名称">
                             <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
                         </Form.Item>
-                        <Form.Item label="日期">
-                            <DatePicker locale={locale} onChange={this.onDateChange.bind(this, 'date')}/>
+                        <Row gutter={24}>
+                            <Col span={8}>
+                                <Form.Item label="作者">
+                                    <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item label="分类">
+                                    <Select className={'w100'} defaultValue="lucy" style={{width: 120}}>
+                                        <Option value="jack">Jack</Option>
+                                        <Option value="lucy">Lucy</Option>
+                                        <Option value="Yiminghe">yiminghe</Option>
+                                    </Select>
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item label="标签">
+                                    <Select mode="tags" style={{width: '100%'}} placeholder="Tags Mode">
+                                        {children}
+                                    </Select>
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={8}>
+                                <Form.Item label="是否可评论">
+                                    <Checkbox/>
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item label="是否置顶">
+                                    <Checkbox/>
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Form.Item label={'摘要'}>
+                            <TextArea rows={4}/>
+                        </Form.Item>
+                        <Form.Item label={'内容'}>
+                            <div className={'word-editor'}/>
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
-                                <Icon type="search"/> 搜索
+                                <Icon type="check"/> 提交
                             </Button>
                             <Button type="info" className='ml20p'>
                                 <Icon type="reload"/>重置

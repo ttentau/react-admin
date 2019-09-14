@@ -33,13 +33,13 @@ export default class BaseHeader extends React.Component {
             </Menu>
         )
         return(
-            <Header style={{background: '#fff', padding: 0, position: 'fixed', zIndex: 1, width: '100%'}}>
+            <Header style={{background: '#fff', padding: 0, position: 'fixed', zIndex: 99999, width: '100%'}}>
                 <div className='header-left'>
                     <div className="logo ">
                         个人博客
                     </div>
                     <Icon type="menu-unfold" onClick={this.onCollapse}/>
-                    <Breadcrumb  className='ml20p'>
+                    <Breadcrumb className='ml20p'>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
                     </Breadcrumb>

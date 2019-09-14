@@ -7,7 +7,7 @@
 //width的px循环
 .wpx(@n, @i: 0) when (@i =< @n) {
   .w@{i}p {
-    width: (1px * @i);;
+    width: (1px * @i)!important;
   }
   .wpx(@n, (@i + 10));
 }
@@ -15,7 +15,7 @@
 //width的百分比循环
 .wp(@n, @i: 0) when (@i =< @n) {
   .w@{i} {
-    width: (@i * 1%);
+    width: (@i * 1%)!important;
   }
   .wp(@n, (@i + 1));
 }
@@ -27,7 +27,7 @@
 //height的px循环
 .hpx(@n, @i: 0) when (@i =< @n) {
   .h@{i}p {
-    height: (1px * @i);;
+    height: (1px * @i)!important;
   }
   .hpx(@n, (@i + 10));
 }
@@ -35,7 +35,7 @@
 //height的百分比循环
 .hp(@n, @i: 0) when (@i =< @n) {
   .h@{i} {
-    height: (@i * 1%);
+    height: (@i * 1%)!important;
   }
   .hp(@n, (@i + 1));
 }
@@ -55,7 +55,7 @@
 
 .plp(@n, @i: 0) when (@i =< @n) {
   .pl@{i}p {
-    padding-left: (1px * @i);;
+    padding-left: (1px * @i)!important;
   }
   .plp(@n, (@i + 1));
 }
@@ -65,7 +65,7 @@
 
 .prp(@n, @i: 0) when (@i =< @n) {
   .pr@{i}p {
-    padding-right: (1px * @i);;
+    padding-right: (1px * @i)!important;
   }
   .prp(@n, (@i + 1));
 }
@@ -75,7 +75,7 @@
 
 .ptp(@n, @i: 0) when (@i =< @n) {
   .pt@{i}p {
-    padding-top: (1px * @i);;
+    padding-top: (1px * @i)!important;
   }
   .ptp(@n, (@i + 1));
 }
@@ -85,7 +85,7 @@
 
 .pbp(@n, @i: 0) when (@i =< @n) {
   .pb@{i}p {
-    padding-bottom: (1px * @i);;
+    padding-bottom: (1px * @i)!important;
   }
   .pbp(@n, (@i + 1));
 }
@@ -96,7 +96,7 @@
 
 .mlp(@n, @i: 0) when (@i =< @n) {
   .ml@{i}p {
-    margin-left: (1px * @i);;
+    margin-left: (1px * @i)!important;
   }
   .mlp(@n, (@i + 1));
 }
@@ -106,7 +106,7 @@
 
 .mrp(@n, @i: 0) when (@i =< @n) {
   .mr@{i}p {
-    margin-right: (1px * @i);;
+    margin-right: (1px * @i)!important;
   }
   .mrp(@n, (@i + 1));
 }
@@ -116,7 +116,7 @@
 
 .mtp(@n, @i: 0) when (@i =< @n) {
   .mt@{i}p {
-    margin-top: (1px * @i);;
+    margin-top: (1px * @i)!important;
   }
   .mtp(@n, (@i + 1));
 }
@@ -126,7 +126,7 @@
 
 .mbp(@n, @i: 0) when (@i =< @n) {
   .mb@{i}p {
-    margin-bottom: (1px * @i);;
+    margin-bottom: (1px * @i)!important;
   }
   .mbp(@n, (@i + 1));
 }

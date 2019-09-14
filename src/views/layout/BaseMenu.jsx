@@ -1,7 +1,6 @@
 import React from 'react'
 import {Icon, Layout, Menu} from "antd"
 import {routeConfig} from '../../route'
-import {Route} from "react-router-dom"
 import Link from "react-router-dom/Link"
 
 const {Sider} = Layout
