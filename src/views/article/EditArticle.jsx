@@ -6,7 +6,7 @@ const {Option} = Select;
 const {TextArea} = Input;
 const E = window.wangEditor
 
-export default class CreateArticle extends Component {
+export default class EditArticle extends Component {
     state = {
         loading: false,
         form: {},
@@ -14,6 +14,7 @@ export default class CreateArticle extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         this.state.wordEditor = new E('.word-editor')
         this.state.wordEditor.create()
         // let edit = document.querySelector('.w-e-text-container')
@@ -65,7 +66,7 @@ export default class CreateArticle extends Component {
                       title={
                           <div>
                               <Icon type="arrow-left" className={'cp'} onClick={this.back}/>
-                              <span style={{marginLeft: 30}}>添加文章</span>
+                              <span style={{marginLeft: 30}}>编辑文章</span>
                           </div>
                       }>
                     <Form onSubmit={this.handleSubmit}>

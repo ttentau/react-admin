@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import {routeConfig} from './route'
+import Redirect from "react-router-dom/Redirect"
 
 // ReactDOM.render((
 //     <Router>
@@ -25,6 +26,7 @@ ReactDOM.render(
                 {routeConfig.map((v, i) => (
                     <Route path={v.path} key={i} component={v.component}/>
                 ))}
+                <Route render={() => <Redirect to="/404" />} />
             </Switch>
         </Router>
     ),

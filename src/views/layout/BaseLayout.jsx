@@ -43,7 +43,6 @@ export default class BaseLayout extends React.Component {
         let routes = routeConfig.reduce((acc, cur, i) => {
             if (cur.layout === 'app') {
                 cur.children.map(v => {
-                    // return <Route path={cur.path + v.path} component={v.component}/>
                     return acc.push(<Route path={cur.path + v.path} key={cur.path + v.path} component={v.component}/>)
                 })
             }

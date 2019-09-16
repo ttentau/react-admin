@@ -1,11 +1,10 @@
 import React, {Component} from "react"
-import {Button, Card, DatePicker, Form, Icon, Input, Popconfirm, Table, message} from "antd";
+import {Button, Card, DatePicker, Form, Icon, Input, Table} from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import Link from "react-router-dom/Link"
 import ArticleApi from '../../api/article'
-import {withRouter} from "react-router-dom"
 
-class Article extends Component {
+class Category extends Component {
     state = {
         form: {
             // date:moment('2019-09-11')
@@ -80,14 +79,6 @@ class Article extends Component {
         console.log(this.state.form)
     }
 
-    del(row) {
-        message.success('删除成功')
-    }
-
-    nav(url,query) {
-        this.props.history.push(url,query)
-    }
-
     render() {
         const columns = [
             {title: '标题', width: 300, dataIndex: 'title'},
@@ -103,19 +94,9 @@ class Article extends Component {
                 render: (text, record, index) => (
                     <div>
                         <Button type="primary" onClick={this.option.bind(this, record)}>查看</Button>
-                        <Button className={'ml10p mr10p'}
-                                type="primary"
-                                onClick={this.nav.bind(this, '/article/edit',{id:record.id})}>
-                            编辑
-                        </Button>
-                        <Popconfirm
-                            title="确定删除这条数据？"
-                            onConfirm={this.del.bind(this, record)}
-                            okText="确定"
-                            cancelText="取消"
-                        >
-                            <Button type="primary">删除</Button>
-                        </Popconfirm>
+                        <Button className={'ml10p mr10p'} type="primary"
+                                onClick={this.option.bind(this, record)}>编辑</Button>
+                        <Button type="primary" onClick={this.option.bind(this, record)}>删除</Button>
                     </div>
                 )
             }
@@ -124,9 +105,9 @@ class Article extends Component {
 
         return (
             <div>
-                <Card title='文章列表' className='mb20p'>
+                <Card title='分类列表' className='mb20p'>
                     <Form layout='inline' onSubmit={this.handleSubmit}>
-                        <Form.Item label="文章名称">
+                        <Form.Item label="分类名称">
                             <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
                         </Form.Item>
                         <Form.Item label="日期">
@@ -171,4 +152,4 @@ class Article extends Component {
     }
 }
 
-export default withRouter(Article)
+export default Category

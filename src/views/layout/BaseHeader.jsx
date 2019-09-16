@@ -1,11 +1,12 @@
 import React from "react"
 import {Avatar, Badge, Breadcrumb, Dropdown, Icon, Layout, Menu} from "antd"
+import {withRouter} from "react-router-dom"
+import {routeConfig} from '../../route/index'
 
 const {Header} = Layout
 
-export default class BaseHeader extends React.Component {
-    state = {
-    }
+class BaseHeader extends React.Component {
+    state = {}
 
     onCollapse = () => {
         this.props.onMenuCollapse(!this.props.isMenuCollapse)
@@ -15,6 +16,21 @@ export default class BaseHeader extends React.Component {
     }
 
     render() {
+        // console.log(routeConfig)
+        let pathname = window.location.pathname
+
+        let breadcrumbList = []
+        routeConfig.map(v => {
+            if (v.path !== '/' && pathname.includes(v.path)) {
+                breadcrumbList.push(<Breadcrumb.Item key={v.path}>{v.meta.title}</Breadcrumb.Item>)
+                v.children.map(w => {
+                    if (pathname.includes(w.path)) {
+                        breadcrumbList.push(<Breadcrumb.Item key={w.path}>{w.meta.title}</Breadcrumb.Item>)
+                    }
+                })
+            }
+        })
+
         const menu = (
             <Menu>
                 <Menu.Item>
@@ -32,16 +48,15 @@ export default class BaseHeader extends React.Component {
                 </Menu.Item>
             </Menu>
         )
-        return(
+        return (
             <Header style={{background: '#fff', padding: 0, position: 'fixed', zIndex: 99999, width: '100%'}}>
                 <div className='header-left'>
-                    <div className="logo ">
+                    <div className="logo">
                         个人博客
                     </div>
                     <Icon type="menu-unfold" onClick={this.onCollapse}/>
                     <Breadcrumb className='ml20p'>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                        {breadcrumbList}
                     </Breadcrumb>
                 </div>
                 <div className="header-right mr30p">
@@ -60,3 +75,5 @@ export default class BaseHeader extends React.Component {
         )
     }
 }
+
+export default withRouter(BaseHeader)
