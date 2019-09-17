@@ -6,7 +6,7 @@ const {Option} = Select;
 const {TextArea} = Input;
 const E = window.wangEditor
 
-export default class CreateArticle extends Component {
+export default class ArticleDetail extends Component {
     state = {
         loading: false,
         form: {},
@@ -59,18 +59,6 @@ export default class CreateArticle extends Component {
             children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
         }
 
-        let oneRowItemLayout = {
-            labelAlign: 'left',
-            labelCol: {span: 2},
-            wrapperCol: {span: 22,offset:0},
-        }
-
-        let moreRowItemLayout = {
-            labelAlign: 'left',
-            labelCol: {span: 6},
-            wrapperCol: {span: 18,offset:0},
-        }
-
         return (
             <div>
                 <Card className='mb20p'
@@ -81,18 +69,17 @@ export default class CreateArticle extends Component {
                           </div>
                       }>
                     <Form onSubmit={this.handleSubmit}>
-                        <Form.Item label="文章名称"
-                                   {...oneRowItemLayout}>
+                        <Form.Item label="文章名称">
                             <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
                         </Form.Item>
                         <Row gutter={24}>
                             <Col span={8}>
-                                <Form.Item label="作者" {...moreRowItemLayout}>
+                                <Form.Item label="作者">
                                     <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Form.Item label="分类" {...moreRowItemLayout}>
+                                <Form.Item label="分类">
                                     <Select className={'w100'} defaultValue="lucy" style={{width: 120}}>
                                         <Option value="jack">Jack</Option>
                                         <Option value="lucy">Lucy</Option>
@@ -101,7 +88,7 @@ export default class CreateArticle extends Component {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Form.Item label="标签" {...moreRowItemLayout}>
+                                <Form.Item label="标签">
                                     <Select mode="tags" style={{width: '100%'}} placeholder="Tags Mode">
                                         {children}
                                     </Select>
@@ -110,22 +97,22 @@ export default class CreateArticle extends Component {
                         </Row>
                         <Row gutter={24}>
                             <Col span={8}>
-                                <Form.Item label="是否可评论" {...moreRowItemLayout}>
+                                <Form.Item label="是否可评论">
                                     <Checkbox/>
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Form.Item label="是否置顶" {...moreRowItemLayout}>
+                                <Form.Item label="是否置顶">
                                     <Checkbox/>
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Form.Item label={'摘要'} {...oneRowItemLayout}>
+                        <Form.Item label={'摘要'}>
                             <TextArea rows={4}/>
                         </Form.Item>
-                        <Form.Item label={'内容'} {...oneRowItemLayout}/>
-                        <div className={'word-editor'}/>
-
+                        <Form.Item label={'内容'}>
+                            <div className={'word-editor'}/>
+                        </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 <Icon type="check"/> 提交

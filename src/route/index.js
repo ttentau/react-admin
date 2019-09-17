@@ -4,6 +4,7 @@ import Article from "../views/article/Article"
 import CreateArticle from "../views/article/CreateArticle"
 import Category from "../views/category/Category"
 import EditArticle from "../views/article/EditArticle"
+import ArticleDetail from "../views/article/ArticleDetail"
 
 export const routeConfig = [
     {
@@ -49,6 +50,15 @@ export const routeConfig = [
                 meta:{
                     icon:'',
                     title:'编辑文章'
+                }
+            },
+            {
+                path: '/detail',
+                component: ArticleDetail,
+                hidden: false,
+                meta:{
+                    icon:'',
+                    title:'文章详情'
                 }
             },
         ]
