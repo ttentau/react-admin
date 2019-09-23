@@ -4,6 +4,15 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import Link from "react-router-dom/Link"
 import ArticleApi from '../../api/article'
 import {withRouter} from "react-router-dom"
+import { connect } from 'react-redux'
+
+import store from "../../store"
+
+console.log(store.getState())
+
+store.subscribe(() => {
+    console.log(store.getState())
+})
 
 class Article extends Component {
     state = {
@@ -52,6 +61,8 @@ class Article extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+
+        store.dispatch({type: 'test'})
         console.log(this.state.form)
     };
 
@@ -72,7 +83,8 @@ class Article extends Component {
     }
 
     componentDidMount() {
-        this.getData()
+        console.log(this.context.store)
+        // this.getData()
     }
 
     search() {
@@ -84,8 +96,8 @@ class Article extends Component {
         message.success('删除成功')
     }
 
-    nav(url,query) {
-        this.props.history.push(url,query)
+    nav(url, query) {
+        this.props.history.push(url, query)
     }
 
     render() {
@@ -105,7 +117,7 @@ class Article extends Component {
                         <Button type="primary" onClick={this.option.bind(this, record)}>查看</Button>
                         <Button className={'ml10p mr10p'}
                                 type="primary"
-                                onClick={this.nav.bind(this, '/article/edit',{id:record.id})}>
+                                onClick={this.nav.bind(this, '/article/edit', {id: record.id})}>
                             编辑
                         </Button>
                         <Popconfirm
@@ -170,5 +182,8 @@ class Article extends Component {
         )
     }
 }
+const TestArticle = connect()(Article)
 
-export default withRouter(Article)
+// export default connect()(withRouter(Article))
+export default TestArticle
+// export default Article

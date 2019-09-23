@@ -1,6 +1,7 @@
 import React, {Component} from "react"
-import {Button, Card, Checkbox, Col, DatePicker, Form, Icon, Input, Row, Select} from "antd";
-import locale from "antd/es/date-picker/locale/zh_CN"
+import {Button, Card, Checkbox, Col, Form, Icon, Input, Row, Select} from "antd";
+// import {Button, Card, Checkbox, Col, DatePicker, Form, Icon, Input, Row, Select} from "antd";
+// import locale from "antd/es/date-picker/locale/zh_CN"
 
 const {Option} = Select;
 const {TextArea} = Input;
@@ -14,7 +15,9 @@ export default class ArticleDetail extends Component {
     }
 
     componentDidMount() {
-        this.state.wordEditor = new E('.word-editor')
+        this.setState({
+            wordEditor:new E('.word-editor'),
+        })
         this.state.wordEditor.create()
         // let edit = document.querySelector('.w-e-text-container')
         // edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'

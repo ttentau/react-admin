@@ -6,6 +6,9 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import {routeConfig} from './route'
 import Redirect from "react-router-dom/Redirect"
+import {Provider} from "react-redux"
+import store from "./store"
+import {Component} from "react"
 
 // ReactDOM.render((
 //     <Router>
@@ -18,17 +21,31 @@ import Redirect from "react-router-dom/Redirect"
 //         </Switch>
 //     </Router>
 // ), document.getElementById('root'))
+// Route path={v.path} key={i} component={v.component}/>
+function RouteWithSubRoutes(route) {
+    return (
+        <Route
+            path={route.path}
+            render={props => (
+                // pass the sub-routes down to keep nesting
+                <route.component {...props} routes={route.children} />
+            )}
+        />
+    );
+}
 
 ReactDOM.render(
     (
-        <Router>
-            <Switch>
-                {routeConfig.map((v, i) => (
-                    <Route path={v.path} key={i} component={v.component}/>
-                ))}
-                <Route render={() => <Redirect to="/404" />} />
-            </Switch>
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <Switch>
+                    {routeConfig.map((v, i) => (
+                        <RouteWithSubRoutes key={i} {...v} />
+                    ))}
+                    <Route render={() => <Redirect to="/404"/>}/>
+                </Switch>
+            </Router>
+        </Provider>
     ),
     document.getElementById('root'))
 

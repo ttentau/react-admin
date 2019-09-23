@@ -27,8 +27,10 @@ class BaseHeader extends React.Component {
                     if (pathname.includes(w.path)) {
                         breadcrumbList.push(<Breadcrumb.Item key={w.path}>{w.meta.title}</Breadcrumb.Item>)
                     }
+                    return ''
                 })
             }
+            return ''
         })
 
         const menu = (
