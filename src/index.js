@@ -1,61 +1,108 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './assets/less/index.less'
-import * as serviceWorker from './serviceWorker'
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-
-import {routeConfig} from './route'
-import Redirect from "react-router-dom/Redirect"
+import React from "react";
+import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import store from "./store"
-import {Component} from "react"
+import {routeConfig} from "./route"
+import Redirect from "react-router-dom/Redirect"
 
-// ReactDOM.render((
-//     <Router>
-//         <Switch>
-//             <Route exact path="/">
-//                 <Redirect to='/app/article/index'/>
-//             </Route>
-//             <Route path="/app" component={App}/>
-//             <Route path="/Login" component={Login}/>
-//         </Switch>
-//     </Router>
-// ), document.getElementById('root'))
-// Route path={v.path} key={i} component={v.component}/>
+// Some folks find value in a centralized route config.
+// A route config is just data. React is great at mapping
+// data into components, and <Route> is a component.
+
+////////////////////////////////////////////////////////////
+// first our route components
+function Sandwiches() {
+    return <h2>Sandwiches</h2>;
+}
+
+function Tacos({routes}) {
+    return (
+        <div>
+            <h2>Tacos</h2>
+            <ul>
+                <li>
+                    <Link to="/tacos/bus">Bus</Link>
+                </li>
+                <li>
+                    <Link to="/tacos/cart">Cart</Link>
+                </li>
+            </ul>
+
+            {routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route} />
+            ))}
+        </div>
+    );
+}
+
+function Bus() {
+    return <h3>Bus</h3>;
+}
+
+class Cart extends React.Component {
+    render() {
+        return <h3>Cart</h3>;
+    }
+}
+
+////////////////////////////////////////////////////////////
+// then our route config
+const routes = [
+    {
+        path: "/sandwiches",
+        component: Sandwiches
+    },
+    {
+        path: "/tacos",
+        component: Tacos,
+        routes: [
+            {
+                path: "/tacos/bus",
+                component: Bus
+            },
+            {
+                path: "/tacos/cart",
+                component: Cart
+            }
+        ]
+    }
+];
+
+// wrap <Route> and use this everywhere instead, then when
+// sub routes are added to any route it'll work
 function RouteWithSubRoutes(route) {
     return (
         <Route
             path={route.path}
             render={props => (
                 // pass the sub-routes down to keep nesting
-                <route.component {...props} routes={route.children} />
+                <route.component {...props} routes={route.routes}/>
             )}
         />
     );
 }
 
-ReactDOM.render(
-    (
-        <Provider store={store}>
-            <Router>
-                <Switch>
-                    {routeConfig.map((v, i) => (
-                        <RouteWithSubRoutes key={i} {...v} />
-                    ))}
-                    <Route render={() => <Redirect to="/404"/>}/>
-                </Switch>
-            </Router>
-        </Provider>
-    ),
-    document.getElementById('root'))
+function RouteConfigExample() {
+    return (
+        <Router>
+            <div>
+                <ul>
+                    <li>
+                        <Link to="/tacos">Tacos</Link>
+                    </li>
+                    <li>
+                        <Link to="/sandwiches">Sandwiches</Link>
+                    </li>
+                </ul>
 
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister()
-
-//热更新
-if (module.hot) {
-    module.hot.accept()
+                {routes.map((route, i) => (
+                    <RouteWithSubRoutes key={i} {...route} />
+                ))}
+            </div>
+        </Router>
+    );
 }
+
+ReactDOM.render(<RouteConfigExample/>, document.getElementById('root'))
+
