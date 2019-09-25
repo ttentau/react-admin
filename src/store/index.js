@@ -2,15 +2,15 @@ import {createStore} from 'redux'
 // import todoApp from './reducers'
 
 let initState = {
-    userInfo: {},
-    userId: '',
+    userInfo: {text: 111, name: 'TTTT'},
+    userId: '123',
     token: ''
 }
 
 function todoApp(state = initState, action) {
     switch (action.type) {
         case 'test':
-            return 1
+            return {...state, ...{userInfo: {name: action.payload}}}
         default:
             return state
     }

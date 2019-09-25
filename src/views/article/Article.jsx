@@ -4,15 +4,7 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import Link from "react-router-dom/Link"
 import ArticleApi from '../../api/article'
 import {withRouter} from "react-router-dom"
-import { connect } from 'react-redux'
-
-import store from "../../store"
-
-console.log(store.getState())
-
-store.subscribe(() => {
-    console.log(store.getState())
-})
+import {connect} from 'react-redux'
 
 class Article extends Component {
     state = {
@@ -61,8 +53,6 @@ class Article extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
-        store.dispatch({type: 'test'})
         console.log(this.state.form)
     };
 
@@ -83,7 +73,7 @@ class Article extends Component {
     }
 
     componentDidMount() {
-        console.log(this.context.store)
+        console.log(this)
         // this.getData()
     }
 
@@ -158,7 +148,8 @@ class Article extends Component {
                     <div className="table-header">
                         <span>共 {this.state.tableData.count} 条数据</span>
                         <div>
-                            <Button type="info" className='mr10p' onClick={this.getData}>
+                            {/*<Button type="info" className='mr10p' onClick={this.getData}>*/}
+                            <Button type="info" className='mr10p' onClick={this.props.onTodoClick}>
                                 <Icon type="reload"/>
                             </Button>
                             <Link to="/article/create">
@@ -182,8 +173,19 @@ class Article extends Component {
         )
     }
 }
-const TestArticle = connect()(Article)
 
-// export default connect()(withRouter(Article))
-export default TestArticle
-// export default Article
+const mapStateToProps = state => {
+    return {
+        userInfo: state.userInfo,
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onTodoClick: () => {
+            dispatch({type: 'test', payload: 1})
+        }
+    }
+}
+Article = connect(mapStateToProps, mapDispatchToProps)(Article)
+
+export default withRouter(Article)

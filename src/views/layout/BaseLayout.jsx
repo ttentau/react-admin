@@ -9,9 +9,21 @@ import Redirect from "react-router-dom/Redirect"
 
 const {Content} = Layout
 
+
+function RouteWithSubRoutes(route) {
+    return (
+        <Route
+            path={route.path}
+            render={props => (
+                <route.component {...props} children={route.children} path={route.path}/>
+            )}
+        />
+    );
+}
+
 export default class BaseLayout extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         // console.log('props')
         this.state = {
@@ -23,14 +35,15 @@ export default class BaseLayout extends React.Component {
     onMenuCollapse = (e) => {
         this.setState({menuCollapsed: e})
     }
+
     onRightSideBarCollapse = (e) => {
         // console.log(e)
         this.setState({rightSideBarCollapsed: e})
     }
 
     componentDidMount() {
+        // console.log(this.props)
     }
-
 
     componentDidUpdate(prevProps, prevState, snapshot) {
     }
@@ -38,14 +51,10 @@ export default class BaseLayout extends React.Component {
     componentWillUnmount() {
     }
 
-
     render() {
-        let routes = routeConfig.reduce((acc, cur, i) => {
-            if (cur.layout === 'app') {
-                cur.children.map(v => {
-                    return acc.push(<Route path={cur.path + v.path} key={cur.path + v.path} component={v.component}/>)
-                })
-            }
+        let routes = this.props.children.reduce((acc, cur) => {
+            let props = Object.assign({}, cur, {path: this.props.path + cur.path})
+            acc.push(<RouteWithSubRoutes key={this.props.path + cur.path} {...props}  />)
             return acc
         }, [])
 
@@ -66,7 +75,6 @@ export default class BaseLayout extends React.Component {
                         transition: 'all .2s',
                         background: '#f1f1f1'
                     }}>
-                        {isRedirect}
                         {routes}
                         {/*<div style={{padding: 24, background: '#fff'}}>*/}
                         {/*</div>*/}

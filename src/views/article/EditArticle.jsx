@@ -14,9 +14,10 @@ export default class EditArticle extends Component {
 
     componentDidMount() {
         console.log(this.props)
-        this.setState({
-            wordEditor:new E('.word-editor'),
-        })
+        // this.setState({
+        //     wordEditor:new E('.word-editor'),
+        // })
+        this.state.wordEditor = new E('.word-editor')
         this.state.wordEditor.create()
         // let edit = document.querySelector('.w-e-text-container')
         // edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'

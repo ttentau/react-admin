@@ -1,108 +1,48 @@
-import React from "react";
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
-import ReactDOM from "react-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './assets/less/index.less'
+import * as serviceWorker from './serviceWorker'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+
+import {routeConfig} from './route'
+import Redirect from "react-router-dom/Redirect"
 import {Provider} from "react-redux"
 import store from "./store"
-import {routeConfig} from "./route"
-import Redirect from "react-router-dom/Redirect"
 
-// Some folks find value in a centralized route config.
-// A route config is just data. React is great at mapping
-// data into components, and <Route> is a component.
-
-////////////////////////////////////////////////////////////
-// first our route components
-function Sandwiches() {
-    return <h2>Sandwiches</h2>;
-}
-
-function Tacos({routes}) {
-    return (
-        <div>
-            <h2>Tacos</h2>
-            <ul>
-                <li>
-                    <Link to="/tacos/bus">Bus</Link>
-                </li>
-                <li>
-                    <Link to="/tacos/cart">Cart</Link>
-                </li>
-            </ul>
-
-            {routes.map((route, i) => (
-                <RouteWithSubRoutes key={i} {...route} />
-            ))}
-        </div>
-    );
-}
-
-function Bus() {
-    return <h3>Bus</h3>;
-}
-
-class Cart extends React.Component {
-    render() {
-        return <h3>Cart</h3>;
-    }
-}
-
-////////////////////////////////////////////////////////////
-// then our route config
-const routes = [
-    {
-        path: "/sandwiches",
-        component: Sandwiches
-    },
-    {
-        path: "/tacos",
-        component: Tacos,
-        routes: [
-            {
-                path: "/tacos/bus",
-                component: Bus
-            },
-            {
-                path: "/tacos/cart",
-                component: Cart
-            }
-        ]
-    }
-];
-
-// wrap <Route> and use this everywhere instead, then when
-// sub routes are added to any route it'll work
 function RouteWithSubRoutes(route) {
     return (
         <Route
             path={route.path}
             render={props => (
-                // pass the sub-routes down to keep nesting
-                <route.component {...props} routes={route.routes}/>
+                <route.component {...props} children={route.children} path={route.path}/>
             )}
         />
     );
 }
 
-function RouteConfigExample() {
-    return (
-        <Router>
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/tacos">Tacos</Link>
-                    </li>
-                    <li>
-                        <Link to="/sandwiches">Sandwiches</Link>
-                    </li>
-                </ul>
+ReactDOM.render(
+    (
+        <Provider store={store}>
+            <Router>
+                <Switch>
+                    {routeConfig.map((v, i) => (
+                        <RouteWithSubRoutes key={i} {...v} />
+                    ))}
+                    <Route exact path="/" render={() => <Redirect to="/article/index"/>}/>
+                    <Route render={() => <Redirect to="/404"/>}/>
+                </Switch>
+            </Router>
+        </Provider>
+    ),
+    document.getElementById('root'))
 
-                {routes.map((route, i) => (
-                    <RouteWithSubRoutes key={i} {...route} />
-                ))}
-            </div>
-        </Router>
-    );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister()
+
+//热更新
+if (module.hot) {
+    module.hot.accept()
 }
-
-ReactDOM.render(<RouteConfigExample/>, document.getElementById('root'))
-

@@ -12,10 +12,6 @@ export const routeConfig = [
         component: Login,
     },
     {
-        path: '/',
-        component: App,
-    },
-    {
         path: '/article',
         layout: 'app',
         hidden: false,

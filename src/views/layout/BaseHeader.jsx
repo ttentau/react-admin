@@ -2,6 +2,8 @@ import React from "react"
 import {Avatar, Badge, Breadcrumb, Dropdown, Icon, Layout, Menu} from "antd"
 import {withRouter} from "react-router-dom"
 import {routeConfig} from '../../route/index'
+import {connect} from "react-redux"
+import Article from "../article/Article"
 
 const {Header} = Layout
 
@@ -65,7 +67,7 @@ class BaseHeader extends React.Component {
                     <Dropdown overlay={menu} className='mr20p'>
                             <span className="ant-dropdown-link d-flex align-items-center">
                                 <Avatar icon="user"/>
-                                <span className='ml10p'>TTentau</span>
+                                <span className='ml10p'>{this.props.userInfo.name}</span>
                             </span>
                     </Dropdown>
 
@@ -77,5 +79,12 @@ class BaseHeader extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        userInfo: state.userInfo,
+    }
+}
+BaseHeader = connect(mapStateToProps)(BaseHeader)
 
 export default withRouter(BaseHeader)
