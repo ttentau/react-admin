@@ -36,14 +36,6 @@ export default class CreateArticle extends Component {
         console.log(this.state.form)
     };
 
-    onChange(key, e) {
-        let form = this.state.form
-        form[key] = e.target.value
-        this.setState({
-            form: form
-        })
-    }
-
     onDateChange(key, date, dateString) {
         let form = this.state.form
         form[key] = date.valueOf()
@@ -56,6 +48,15 @@ export default class CreateArticle extends Component {
         window.history.back()
     }
 
+    onChange(key, value) {
+        console.log(key, value)
+        let form = this.state.form
+        form[key] = value
+        this.setState({
+            form: form
+        })
+    }
+
     render() {
         const children = [];
         for (let i = 10; i < 36; i++) {
@@ -65,13 +66,13 @@ export default class CreateArticle extends Component {
         let oneRowItemLayout = {
             labelAlign: 'left',
             labelCol: {span: 2},
-            wrapperCol: {span: 22,offset:0},
+            wrapperCol: {span: 22, offset: 0},
         }
 
         let moreRowItemLayout = {
             labelAlign: 'left',
             labelCol: {span: 6},
-            wrapperCol: {span: 18,offset:0},
+            wrapperCol: {span: 18, offset: 0},
         }
 
         return (
@@ -84,19 +85,22 @@ export default class CreateArticle extends Component {
                           </div>
                       }>
                     <Form onSubmit={this.handleSubmit}>
-                        <Form.Item label="文章名称"
-                                   {...oneRowItemLayout}>
-                            <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
+                        <Form.Item label="文章名称" {...oneRowItemLayout}>
+                            <Input value={this.state.form.name} onChange={e => this.onChange('name', e.target.value)}/>
                         </Form.Item>
                         <Row gutter={24}>
                             <Col span={8}>
                                 <Form.Item label="作者" {...moreRowItemLayout}>
-                                    <Input value={this.state.form.name} onChange={this.onChange.bind(this, 'name')}/>
+                                    <Input value={this.state.form.author}
+                                           onChange={e => this.onChange('author', e.target.value)}/>
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item label="分类" {...moreRowItemLayout}>
-                                    <Select className={'w100'} defaultValue="lucy" style={{width: 120}}>
+                                    <Select className={'w100'}
+                                            value={this.state.form.category}
+                                            onChange={e => this.onChange('category', e)}
+                                            style={{width: 120}}>
                                         <Option value="jack">Jack</Option>
                                         <Option value="lucy">Lucy</Option>
                                         <Option value="Yiminghe">yiminghe</Option>
@@ -105,7 +109,10 @@ export default class CreateArticle extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item label="标签" {...moreRowItemLayout}>
-                                    <Select mode="tags" style={{width: '100%'}} placeholder="Tags Mode">
+                                    <Select mode="tags"
+                                            value={this.state.form.tags}
+                                            onChange={e => this.onChange('tags', e)}
+                                            style={{width: '100%'}}>
                                         {children}
                                     </Select>
                                 </Form.Item>
@@ -114,26 +121,27 @@ export default class CreateArticle extends Component {
                         <Row gutter={24}>
                             <Col span={8}>
                                 <Form.Item label="是否可评论" {...moreRowItemLayout}>
-                                    <Checkbox/>
+                                    <Checkbox checked={this.state.form.isComment}
+                                              onChange={e => this.onChange('isComment', e.target.checked)}/>
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item label="是否置顶" {...moreRowItemLayout}>
-                                    <Checkbox/>
+                                    <Checkbox checked={this.state.form.isTop}
+                                              onChange={e => this.onChange('isTop', e.target.checked)}/>
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item label={'摘要'} {...oneRowItemLayout}>
-                            <TextArea rows={4}/>
+                            <TextArea rows={4} value={this.state.form.summary} onChange={e => this.onChange('summary', e.target.value)}/>
                         </Form.Item>
                         <Form.Item label={'内容'} {...oneRowItemLayout}/>
                         <div className={'word-editor'}/>
-
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 <Icon type="check"/> 提交
                             </Button>
-                            <Button type="info" className='ml20p'>
+                            <Button type="info" className='ml20p' onClick={() => this.setState({form: {}})}>
                                 <Icon type="reload"/>重置
                             </Button>
                         </Form.Item>
