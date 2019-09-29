@@ -4,8 +4,6 @@ import {Route} from "react-router-dom"
 import BaseHeader from "./BaseHeader"
 import BaseMenu from "./BaseMenu"
 import BaseRightBar from "./BaseRightBar"
-import {routeConfig} from '../../route'
-import Redirect from "react-router-dom/Redirect"
 
 const {Content} = Layout
 
@@ -58,7 +56,7 @@ export default class BaseLayout extends React.Component {
             return acc
         }, [])
 
-        let isRedirect = window.location.pathname === '/' ? <Redirect to='/article/index'/> : ''
+        // let isRedirect = window.location.pathname === '/' ? <Redirect to='/article/index'/> : ''
 
         return (
             <Layout style={{minHeight: '100vh'}}>

@@ -6,29 +6,41 @@ const {Option} = Select;
 const {TextArea} = Input;
 const E = window.wangEditor
 
+
 export default class CreateArticle extends Component {
     state = {
         loading: false,
         form: {},
-        wordEditor: null
+        tagList: [],
+        categoryList: [],
     }
+    wordEditor = null
 
     componentDidMount() {
-        // this.setState({
-        //     wordEditor:new E('.word-editor'),
-        // })
-        this.state.wordEditor = new E('.word-editor')
-        this.state.wordEditor.create()
-        // let edit = document.querySelector('.w-e-text-container')
-        // edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
+        this.wordEditor = new E('.word-editor')
+        this.wordEditor.create()
+        let edit = document.querySelector('.w-e-text-container')
+        edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
+        this.getData()
     }
 
     option(row) {
         console.log(row)
     }
 
-    getData() {
-        console.log(1)
+    async getData() {
+        this.setState({loading: true})
+
+        let res = await window.$api.article.tagAndCategoryList()
+        if (res.code === '000000') {
+            this.setState({
+                tagList: res.data.tags,
+                categoryList: res.data.categories
+            })
+        }
+        setTimeout(() => {
+            this.setState({loading: false})
+        }, 250)
     }
 
     handleSubmit = e => {
@@ -58,11 +70,6 @@ export default class CreateArticle extends Component {
     }
 
     render() {
-        const children = [];
-        for (let i = 10; i < 36; i++) {
-            children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-        }
-
         let oneRowItemLayout = {
             labelAlign: 'left',
             labelCol: {span: 2},
@@ -101,9 +108,9 @@ export default class CreateArticle extends Component {
                                             value={this.state.form.category}
                                             onChange={e => this.onChange('category', e)}
                                             style={{width: 120}}>
-                                        <Option value="jack">Jack</Option>
-                                        <Option value="lucy">Lucy</Option>
-                                        <Option value="Yiminghe">yiminghe</Option>
+                                        {this.state.categoryList.map(value => (
+                                            <Option value={value.id}>{value.name}</Option>
+                                        ))}
                                     </Select>
                                 </Form.Item>
                             </Col>
@@ -113,7 +120,9 @@ export default class CreateArticle extends Component {
                                             value={this.state.form.tags}
                                             onChange={e => this.onChange('tags', e)}
                                             style={{width: '100%'}}>
-                                        {children}
+                                        {this.state.tagList.map(value => (
+                                            <Option value={value.id}>{value.name}</Option>
+                                        ))}
                                     </Select>
                                 </Form.Item>
                             </Col>
@@ -133,11 +142,12 @@ export default class CreateArticle extends Component {
                             </Col>
                         </Row>
                         <Form.Item label={'摘要'} {...oneRowItemLayout}>
-                            <TextArea rows={4} value={this.state.form.summary} onChange={e => this.onChange('summary', e.target.value)}/>
+                            <TextArea rows={4} value={this.state.form.summary}
+                                      onChange={e => this.onChange('summary', e.target.value)}/>
                         </Form.Item>
                         <Form.Item label={'内容'} {...oneRowItemLayout}/>
                         <div className={'word-editor'}/>
-                        <Form.Item>
+                        <Form.Item className={'mt20p tac'}>
                             <Button type="primary" htmlType="submit">
                                 <Icon type="check"/> 提交
                             </Button>

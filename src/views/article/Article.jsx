@@ -29,7 +29,6 @@ class Article extends Component {
     }
 
     getData = async () => {
-        this.loading = true
         this.setState({loading: true})
         let params = {}
         if (!this.state.isSearch) {
@@ -45,7 +44,6 @@ class Article extends Component {
             this.state.tableData.list = res.data.list
             this.state.tableData.count = res.data.count
         }
-        this.loading = false
         setTimeout(() => {
             this.setState({loading: false})
         }, 250)
@@ -74,7 +72,7 @@ class Article extends Component {
 
     componentDidMount() {
         console.log(this)
-        // this.getData()
+        this.getData()
     }
 
     search() {
@@ -148,8 +146,7 @@ class Article extends Component {
                     <div className="table-header">
                         <span>共 {this.state.tableData.count} 条数据</span>
                         <div>
-                            {/*<Button type="info" className='mr10p' onClick={this.getData}>*/}
-                            <Button type="info" className='mr10p' onClick={this.props.onTodoClick}>
+                            <Button type="info" className='mr10p' onClick={this.getData}>
                                 <Icon type="reload"/>
                             </Button>
                             <Link to="/article/create">

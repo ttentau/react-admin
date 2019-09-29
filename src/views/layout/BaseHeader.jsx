@@ -3,7 +3,6 @@ import {Avatar, Badge, Breadcrumb, Dropdown, Icon, Layout, Menu} from "antd"
 import {withRouter} from "react-router-dom"
 import {routeConfig} from '../../route/index'
 import {connect} from "react-redux"
-import Article from "../article/Article"
 
 const {Header} = Layout
 

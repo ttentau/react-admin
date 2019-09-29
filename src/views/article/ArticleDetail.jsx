@@ -11,17 +11,15 @@ export default class ArticleDetail extends Component {
     state = {
         loading: false,
         form: {},
-        wordEditor: null
     }
 
+    wordEditor = null
+
     componentDidMount() {
-        // this.setState({
-        //     wordEditor:new E('.word-editor'),
-        // })
-        this.state.wordEditor = new E('.word-editor')
-        this.state.wordEditor.create()
-        // let edit = document.querySelector('.w-e-text-container')
-        // edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
+        this.wordEditor = new E('.word-editor')
+        this.wordEditor.create()
+        let edit = document.querySelector('.w-e-text-container')
+        edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
     }
 
     option(row) {
