@@ -19,8 +19,8 @@ export default class CreateArticle extends Component {
     componentDidMount() {
         this.wordEditor = new E('.word-editor')
         this.wordEditor.create()
-        let edit = document.querySelector('.w-e-text-container')
-        edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
+        // let edit = document.querySelector('.w-e-text-container')
+        // edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
         this.getData()
     }
 
@@ -45,6 +45,7 @@ export default class CreateArticle extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        console.log(this.wordEditor.txt.text())
         console.log(this.state.form)
     };
 
