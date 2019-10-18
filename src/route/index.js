@@ -1,10 +1,10 @@
 import Login from "../views/pages/Login"
-import App from "../App"
 import Article from "../views/article/Article"
 import CreateArticle from "../views/article/CreateArticle"
 import Category from "../views/category/Category"
 import EditArticle from "../views/article/EditArticle"
 import ArticleDetail from "../views/article/ArticleDetail"
+import BaseLayout from "../views/layout/BaseLayout"
 
 export const routeConfig = [
     {
@@ -15,7 +15,7 @@ export const routeConfig = [
         path: '/article',
         layout: 'app',
         hidden: false,
-        component: App,
+        component: BaseLayout,
         meta:{
             icon:'',
             title:'文章管理'
@@ -62,7 +62,7 @@ export const routeConfig = [
         path: '/category',
         layout: 'app',
         hidden: false,
-        component: App,
+        component: BaseLayout,
         meta:{
             icon:'',
             title:'分类管理'

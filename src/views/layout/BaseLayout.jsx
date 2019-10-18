@@ -13,7 +13,7 @@ function RouteWithSubRoutes(route) {
         <Route
             path={route.path}
             render={props => (
-                <route.component {...props} children={route.children} path={route.path}/>
+                <route.component {...props} path={route.path}/>
             )}
         />
     );
@@ -51,10 +51,12 @@ export default class BaseLayout extends React.Component {
 
     render() {
         let routes = this.props.children.reduce((acc, cur) => {
-            let props = Object.assign({}, cur, {path: this.props.path + cur.path})
-            acc.push(<RouteWithSubRoutes key={this.props.path + cur.path} {...props}  />)
+            let path = this.props.currentPath + cur.path
+            let props = Object.assign({}, cur, {path})
+            acc.push(<RouteWithSubRoutes key={path} {...props}  />)
             return acc
         }, [])
+        // console.log(routes)
 
         // let isRedirect = window.location.pathname === '/' ? <Redirect to='/article/index'/> : ''
 
@@ -74,8 +76,6 @@ export default class BaseLayout extends React.Component {
                         background: '#f1f1f1'
                     }}>
                         {routes}
-                        {/*<div style={{padding: 24, background: '#fff'}}>*/}
-                        {/*</div>*/}
                     </Content>
                     <BaseRightBar onRightSideBarCollapse={this.onRightSideBarCollapse}
                                   isRightSideBarCollapsed={this.state.rightSideBarCollapsed}/>

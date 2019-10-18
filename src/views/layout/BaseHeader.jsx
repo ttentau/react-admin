@@ -16,6 +16,11 @@ class BaseHeader extends React.Component {
         this.props.onRightSideBarCollapse(!this.props.isRightSideBarCollapsed)
     }
 
+    logout = () => {
+        this.props.reduxLogout()
+        this.props.history.push('/login')
+    }
+
     render() {
         // console.log(routeConfig)
         let pathname = window.location.pathname
@@ -45,7 +50,7 @@ class BaseHeader extends React.Component {
                     <span>个人设置</span>
                 </Menu.Item>
                 <Menu.Divider/>
-                <Menu.Item>
+                <Menu.Item onClick={this.logout}>
                     <Icon type="logout" className=''/>
                     <span>退出登录</span>
                 </Menu.Item>
@@ -84,6 +89,14 @@ const mapStateToProps = state => {
         userInfo: state.userInfo,
     }
 }
-BaseHeader = connect(mapStateToProps)(BaseHeader)
+
+const mapDispatchToProps = dispatch => {
+    return {
+        reduxLogout: () => {
+            dispatch({type: 'logout'})
+        }
+    }
+}
+BaseHeader = connect(mapStateToProps, mapDispatchToProps)(BaseHeader)
 
 export default withRouter(BaseHeader)
