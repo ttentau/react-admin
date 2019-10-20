@@ -2,21 +2,29 @@ import {createStore} from 'redux'
 import Storage from '../utils/storage'
 
 let initState = {
-    userInfo: {text: 111, name: 'TTTT1'},
+    userInfo: {account: ''},
     userId: '123',
     token: Storage.get('token') === '' ? null : Storage.get('token'),
+    routes: [],
 }
 
 function todoApp(state = initState, action) {
     switch (action.type) {
-        case 'test':
-            return {...state, ...{userInfo: {name: action.payload}}}
         case 'login':
-            Storage.set('token', action.payload)
-            return {...state, ...{token: action.payload}}
+            console.log(action.payload)
+            Storage.set('token', action.payload.token)
+            return {
+                ...state, ...{
+                    token: action.payload.token,
+                    userInfo: action.payload.userInfo,
+                    routes: action.payload.userInfo.routes
+                }
+            }
         case 'logout':
             Storage.remove('token')
             return {...state, ...{token: null, userInfo: {}}}
+        case 'test':
+            return {...state, ...{routes: action.payload}}
         default:
             return state
     }

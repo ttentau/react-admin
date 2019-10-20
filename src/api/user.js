@@ -2,20 +2,14 @@ import CONSTANT from '../utils/constant'
 import request from '../utils/http'
 
 export default {
-    userInfo(data, params) { // eslint-disable-line
-        // return request('patient/read', data, params, CONSTANT.GET)
-        return Promise.resolve({
-            code: '000000',
-            data: {
-                account: 'Admin',
-                username: 'Admin',
-                password: '666666',
-                avatar: 'https://i.loli.net/2018/08/18/5b7819891bab1.jpg',
-            },
-            msg: '操作成功',
-        })
+    userInfo(data, params) {
+        return request('user/userInfo', data, params, CONSTANT.GET)
     },
-    
+
+    login(data, params){
+        return request('user/login', data, params, CONSTANT.POST)
+    },
+
     // 消息
     // 获取所有用户未读信息
     notReadMessages(data, params) {

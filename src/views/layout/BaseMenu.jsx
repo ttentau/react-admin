@@ -1,7 +1,8 @@
 import React from 'react'
 import { Icon, Layout, Menu} from "antd"
-import {routeConfig} from '../../route'
 import {withRouter} from "react-router-dom"
+import {asyncRouterMap} from '../../route/asyncRouterMap'
+
 
 const {Sider} = Layout
 const SubMenu = Menu.SubMenu
@@ -43,7 +44,7 @@ class BaseMenu extends React.Component {
         // })
         // console.log(submenu)
 
-        let menus = routeConfig.reduce((acc, cur, i) => {
+        let menus = asyncRouterMap.reduce((acc, cur, i) => {
             if (cur.layout === 'app') {
                 let menu = ''
                 if (cur.children && !cur.hidden) {

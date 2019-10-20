@@ -1,7 +1,7 @@
 import React from "react"
 import {Avatar, Badge, Breadcrumb, Dropdown, Icon, Layout, Menu} from "antd"
 import {withRouter} from "react-router-dom"
-import {routeConfig} from '../../route/index'
+import {asyncRouterMap} from '../../route/asyncRouterMap'
 import {connect} from "react-redux"
 
 const {Header} = Layout
@@ -17,6 +17,7 @@ class BaseHeader extends React.Component {
     }
 
     logout = () => {
+        window.$util.loading()
         this.props.reduxLogout()
         this.props.history.push('/login')
     }
@@ -26,7 +27,7 @@ class BaseHeader extends React.Component {
         let pathname = window.location.pathname
 
         let breadcrumbList = []
-        routeConfig.map(v => {
+        asyncRouterMap.map(v => {
             if (v.path !== '/' && pathname.includes(v.path)) {
                 breadcrumbList.push(<Breadcrumb.Item key={v.path}>{v.meta.title}</Breadcrumb.Item>)
                 v.children.map(w => {
@@ -71,7 +72,7 @@ class BaseHeader extends React.Component {
                     <Dropdown overlay={menu} className='mr20p'>
                             <span className="ant-dropdown-link d-flex align-items-center">
                                 <Avatar icon="user"/>
-                                <span className='ml10p'>{this.props.userInfo.name}</span>
+                                <span className='ml10p'>{this.props.userInfo.account}</span>
                             </span>
                     </Dropdown>
 

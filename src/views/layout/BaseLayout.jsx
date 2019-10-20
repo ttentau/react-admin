@@ -1,9 +1,10 @@
 import React from 'react'
 import {Layout} from 'antd'
-import {Route} from "react-router-dom"
+import {Route, Switch} from "react-router-dom"
 import BaseHeader from "./BaseHeader"
 import BaseMenu from "./BaseMenu"
 import BaseRightBar from "./BaseRightBar"
+import Page404 from "../pages/Page404"
 
 const {Content} = Layout
 
@@ -76,6 +77,7 @@ export default class BaseLayout extends React.Component {
                         background: '#f1f1f1'
                     }}>
                         {routes}
+                        <Route component={Page404}/>
                     </Content>
                     <BaseRightBar onRightSideBarCollapse={this.onRightSideBarCollapse}
                                   isRightSideBarCollapsed={this.state.rightSideBarCollapsed}/>

@@ -53,7 +53,7 @@ class Article extends Component {
     }
 
     option(row) {
-        console.log(row)
+      //  console.log(row)
     }
 
     getData = async () => {
@@ -79,7 +79,7 @@ class Article extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log(this.state.form)
+        // console.log(this.state.form)
     };
 
     onChange(key, e) {
@@ -99,13 +99,13 @@ class Article extends Component {
     }
 
     componentDidMount() {
-        console.log(this)
-        console.log(this.props)
+       // console.log(this)
+       // console.log(this.props)
         this.getData()
     }
 
     search() {
-        console.log(this)
+       // console.log(this)
         // console.log(this.state.form)
     }
 
